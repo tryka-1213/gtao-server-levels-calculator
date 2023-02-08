@@ -1,0 +1,63 @@
+@font-face {
+    font-family: GGSans;
+    src: url(GGSans.woff2);
+}
+
+body {
+    font-family: GGSans;
+}
+
+.calculator-container {
+    border: 1px solid red;
+    /* height: 98vh; */
+    display: flex;
+    gap: 100px;
+    overflow: hidden;
+    flex-wrap: wrap;
+    column-gap: 130px;
+    justify-content: center;
+}
+
+.calculator {
+    border: 1px solid blue;
+    
+}
+
+.align-txt {
+    text-align: center;
+}
+
+.strong-font {
+    font-weight: 600;
+}
+
+button {
+    position: relative;
+    top: 3px;
+    left: 2px
+}
+
+.checkbox-off {
+    position: relative;
+    top: 5px;
+    left: 4px
+}
+
+.checkbox-on {
+    position: relative;
+    top: 5px;
+    left: 4px
+}
+
+.checkbox-btn {
+    all: unset;
+    cursor: pointer;
+}
+
+a {
+    color: rgb(0, 0, 0);
+}
+
+a:hover {
+    color: rgb(54, 54, 54);
+}

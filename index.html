@@ -1,0 +1,147 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<link rel="stylesheet" href="styles.css">
+<script src="index.js"></script>
+<script defer>
+    window.onload = () => {
+        document.getElementById("xptolevel-input").addEventListener("keypress", (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault()
+            document.getElementById("xptolevel-btn").click()
+        }
+    })
+
+        document.getElementById("leveltoxp-input").addEventListener("keypress", (event) => {
+            if (event.key === "Enter") {
+                event.preventDefault()
+                document.getElementById("leveltoxp-btn").click()
+            }
+        })
+
+        document.getElementById("leveltomsg-input").addEventListener("keypress", (event) => {
+            if (event.key === "Enter") {
+                event.preventDefault()
+                document.getElementById("leveltomsg-btn").click()
+            }
+        })
+
+        document.getElementById("msgtolevel-input").addEventListener("keypress", (event) => {
+            if (event.key === "Enter") {
+                event.preventDefault()
+                document.getElementById("msgtolevel-btn").click()
+            }
+        })
+    }
+
+
+
+    function xptolevel() {
+        let input = parseInt(document.getElementById("xptolevel-input").value)  
+        let level = xpToLevel(input)
+        
+        document.getElementById("xptolevel-result").innerText = `Level: ${level}`
+    }
+
+    function leveltoxp() {
+        let input = parseInt(document.getElementById("leveltoxp-input").value)  
+        let xp = levelToXp(input)
+
+        document.getElementById("leveltoxp-result").innerText = `XP: ${xp}`
+    }
+
+    function leveltomsg() {
+        let input = parseInt(document.getElementById("leveltomsg-input").value)  
+        let prestige = document.getElementById("prestigecheck-leveltomsg").children[0].className.baseVal == "checkbox-on" ? true : false
+        let msg = levelToMessageCount(input)
+
+        document.getElementById("leveltomsg-result").innerText = `Message Count (approx): ${msg}`
+    }
+
+    function msgtolevel() {
+        let input = parseInt(document.getElementById("msgtolevel-input").value)  
+        let prestige = document.getElementById("prestigecheck-msgtolevel").children[0].className.baseVal == "checkbox-on" ? true : false
+        let msg = messageCountToLevel(input)
+
+        document.getElementById("msgtolevel-result").innerText = `Level (approx): ${msg}`
+    }
+
+
+    const toggleButton = (elId) => {
+        if (document.getElementById(elId).children[0].className.baseVal == "checkbox-off") {
+            document.getElementById(elId).innerHTML = `<svg class="checkbox-on" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="green" class="bi bi-toggle-on" viewBox="0 0 16 16"><path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10H5zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/></svg>`
+        } else {
+            document.getElementById(elId).innerHTML = `<svg class="checkbox-off" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-toggle-off" viewBox="0 0 16 16"><path d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/></svg>`
+        }
+
+    }
+</script>
+<body>
+    <div class="calculator-container">
+        <div class="xptolevel align-txt">
+            <span class="strong-font">XP to Level</span><br>
+            <label for="xptolevel-input" class="strong-font">XP</label>
+            <input id="xptolevel-input" class="xptolevel-input" type="number">
+            <button id="xptolevel-btn" onclick="xptolevel()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                </svg>
+            </button>
+
+            <br><span id="xptolevel-result"></span>
+        </div>
+        <div class="leveltoxp align-txt">
+            <span class="strong-font">Level to XP</span><br>
+            <label for="leveltoxp-input" class="strong-font">Level</label>
+            <input id="leveltoxp-input" type="number">
+            <button id="leveltoxp-btn" onclick="leveltoxp()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                </svg>
+            </button>
+            <br><span id="leveltoxp-result"></span>
+        </div>
+        <div class="leveltomsg align-txt">
+            <span class="strong-font">Level to Message Count</span><br>
+            <label for="leveltomsg-input" class="strong-font">Level</label>
+            <input id="leveltomsg-input" type="number">
+            <button id="leveltomsg-btn" onclick="leveltomsg()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                </svg>
+            </button>
+            <br>  
+            <span class="strong-font">Prestige?</span>
+            <button class="checkbox-btn" id="prestigecheck-leveltomsg" onclick="toggleButton('prestigecheck-leveltomsg')">
+                <svg class="checkbox-off" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-toggle-off" viewBox="0 0 16 16">
+                    <path d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
+                </svg>
+            </button>
+            <br><span id="leveltomsg-result"></span>
+        </div>
+        <div class="msgtolevel align-txt">
+            <span class="strong-font">Message Count to Level</span><br>
+            <label for="msgtolevel-input" class="strong-font">Message Count</label>
+            <input id="msgtolevel-input" type="number">
+            <button id="msgtolevel-btn" onclick="msgtolevel()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                </svg>
+            </button>
+            <br>  
+            <span class="strong-font">Prestige?</span>
+            <button class="checkbox-btn" id="prestigecheck-msgtolevel" onclick="toggleButton('prestigecheck-msgtolevel')">
+                <svg class="checkbox-off" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-toggle-off" viewBox="0 0 16 16">
+                    <path d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
+                </svg>
+            </button>
+            <br><span id="msgtolevel-result"></span>
+        </div>
+    </div>
+</body>
+</html>
