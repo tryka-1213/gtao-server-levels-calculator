@@ -60,7 +60,7 @@
     function leveltomsg() {
         let input = parseInt(document.getElementById("leveltomsg-input").value)  
         let prestige = document.getElementById("prestigecheck-leveltomsg").children[0].className.baseVal == "checkbox-on" ? true : false
-        let msg = levelToMessageCount(input)
+        let msg = levelToMessageCount(input, prestige)
 
         document.getElementById("leveltomsg-result").innerText = `Message Count (approx): ${msg}`
     }
@@ -68,7 +68,7 @@
     function msgtolevel() {
         let input = parseInt(document.getElementById("msgtolevel-input").value)  
         let prestige = document.getElementById("prestigecheck-msgtolevel").children[0].className.baseVal == "checkbox-on" ? true : false
-        let msg = messageCountToLevel(input)
+        let msg = messageCountToLevel(input, prestige)
 
         document.getElementById("msgtolevel-result").innerText = `Level (approx): ${msg}`
     }
