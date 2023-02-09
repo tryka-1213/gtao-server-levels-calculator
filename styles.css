@@ -6,7 +6,14 @@
 button { 
     all: unset;
     cursor: pointer;
+    transition: .3s;
+    filter: brightness(100%); 
 }
+
+button:hover {
+    filter: brightness(75%);
+}
+
 
 body {
     font-family: GGSans;
@@ -21,9 +28,14 @@ input::-webkit-inner-spin-button {
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
+input[type=number] {
+    border-left: 4px solid #959af4;
+}
+
 input {
     background-color: #484d53;
-    border-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
     border: 0;
     color: rgb(168, 168, 168);
     -moz-appearance:textfield; /* Firefox */
@@ -80,13 +92,15 @@ button {
     cursor: pointer;
 }
 
+
+
 a {
     color: rgb(0, 0, 0);
 }
 
-a:hover {
+/* a:hover {
     color: rgb(54, 54, 54);
-}
+} */
 
 
 
