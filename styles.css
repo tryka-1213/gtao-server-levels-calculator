@@ -3,12 +3,38 @@
     src: url(GGSans.woff2);
 }
 
+button { 
+    all: unset;
+    cursor: pointer;
+}
+
 body {
     font-family: GGSans;
+    background-color: #363940;
+    color: white;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input {
+    background-color: #484d53;
+    border-radius: 5px;
+    border: 0;
+    color: rgb(168, 168, 168);
+    -moz-appearance:textfield; /* Firefox */
+}
+
+input:focus {
+    color: white;
+    outline: none;
 }
 
 .calculator-container {
-    border: 1px solid rgb(127, 167, 234);
     /* height: 98vh; */
     display: flex;
     gap: 100px;
@@ -51,7 +77,6 @@ button {
 
 .checkbox-btn {
     all: unset;
-    cursor: pointer;
 }
 
 a {
@@ -60,4 +85,26 @@ a {
 
 a:hover {
     color: rgb(54, 54, 54);
+}
+
+
+
+.discord {
+    height: 64px;
+    width: 64px;
+    background-image: url("discord.jpeg");
+    background-size: 64px 64px;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 1;
+    right: 1;
+    margin: 10px;
+    transition: background-size .7s, height .7s, width .7s;
+}
+
+.discord:hover {
+    background-size: 80px 80px;
+    height: 80px;
+    width: 80px;
+    cursor:pointer;
 }
