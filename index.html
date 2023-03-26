@@ -46,7 +46,21 @@
         })
     }
 
+    function extractids() {
+        let input = document.getElementById("extractids-input").value
+        let newMembersOnly = document.getElementById("newmembersonly").children[0].className.baseVal == "checkbox-on" ? true : false
+        let extracted = extract(input, newMembersOnly)
 
+        document.getElementById("extractids-result").textContent = ""
+        if (extracted.length > 0) {
+            document.getElementById("extractids-input").value = `${extracted.join("\n")}`
+        } else {
+            document.getElementById("extractids-result").style.background = "#2d3740"
+            document.getElementById("extractids-result").textContent = "No IDs found"
+        }
+
+        
+    }
 
     function xptolevel() {
         let input = parseInt(document.getElementById("xptolevel-input").value)  
@@ -76,6 +90,14 @@
         let msg = messageCountToLevel(input, prestige)
 
         document.getElementById("msgtolevel-result").innerText = `Level (approx): ${msg}`
+    }
+
+    function msgtoxp() {
+        let input = parseInt(document.getElementById("msgtoxp-input").value)  
+        let prestige = document.getElementById("prestigecheck-msgtoxp").children[0].className.baseVal == "checkbox-on" ? true : false
+        let msg = messageCountToXp(input, prestige)
+
+        document.getElementById("msgtoxp-result").innerText = `XP (approx): ${msg}`
     }
 
 
@@ -109,6 +131,23 @@
             </button>
             <br><span id="leveltoxp-result"></span>
         </div>
+        <!--    Change below this-->
+        <div class="msgtoxp align-txt">
+            <span class="strong-font">Message Count to XP</span><br>
+            <!-- <label for="msgtolevel-input" class="strong-font">Message Count</label> -->
+            <input id="msgtoxp-input" type="number">
+            <button id="msgtoxp-btn" onclick="msgtoxp()">
+                <svg aria-hidden="true" role="img" class="sendIcon-1HcEzu" width="16" height="16" viewBox="0 0 16 16"><path d="M8.2738 8.49222L1.99997 9.09877L0.349029 14.3788C0.250591 14.691 0.347154 15.0322 0.595581 15.246C0.843069 15.4597 1.19464 15.5047 1.48903 15.3613L15.2384 8.7032C15.5075 8.57195 15.6781 8.29914 15.6781 8.00007C15.6781 7.70101 15.5074 7.4282 15.2384 7.29694L1.49839 0.634063C1.20401 0.490625 0.852453 0.535625 0.604941 0.749376C0.356493 0.963128 0.259941 1.30344 0.358389 1.61563L2.00932 6.89563L8.27093 7.50312C8.52405 7.52843 8.71718 7.74125 8.71718 7.99531C8.71718 8.24938 8.52406 8.46218 8.27093 8.4875L8.2738 8.49222Z" fill="#959af4"></path></svg>
+            </button>
+            <br>  
+            <span class="strong-font">Prestige?</span>
+            <button class="checkbox-btn" id="prestigecheck-msgtoxp" onclick="toggleButton('prestigecheck-msgtoxp')">
+                <svg class="checkbox-off" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-toggle-off" viewBox="0 0 16 16">
+                    <path d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
+                </svg>
+            </button>
+            <br><span id="msgtoxp-result"></span>
+        </div>
         <div class="leveltomsg align-txt">
             <span class="strong-font">Level to Message Count</span><br>
             <!-- <label for="leveltomsg-input" class="strong-font">Level</label> -->
@@ -140,6 +179,28 @@
                 </svg>
             </button>
             <br><span id="msgtolevel-result"></span>
+        </div>
+        <div class="extractids align-txt">
+            <span class="extractids-text strong-font">Extract IDs</span><br>
+            <!-- <label for="msgtolevel-input" class="strong-font">Message Count</label> -->
+            <!-- <input id="extractids-input" type="text"> -->
+            <textarea id="extractids-input" placeholder="Enter any logs (zep or hep) here"></textarea>
+
+
+            <br>  
+            <span class="strong-font">New members only?</span>
+            <button class="checkbox-btn" id="newmembersonly" onclick="toggleButton('newmembersonly')">
+                
+                <svg class="checkbox-off" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-toggle-off" viewBox="0 0 16 16">
+                    <path d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
+                </svg>
+            </button><br>
+            <button id="extractids-btn" onclick="extractids()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#959af4" class="bi bi-check-square-fill" viewBox="0 0 20 20">
+                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/>
+                  </svg>
+            </button>
+            <br><span id="extractids-result"></span>
         </div>
     </div>
     <a class="discord" href="https://discord.gg/gtao" target="_blank"></a>

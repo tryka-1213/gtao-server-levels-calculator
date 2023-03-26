@@ -123,3 +123,22 @@ a {
     width: 80px;
     cursor:pointer;
 }
+
+
+.extractids-text {
+    position: relative;
+    bottom: 2px;
+}
+
+
+#extractids-input {
+    color: rgb(168, 168, 168);
+    font-family: GGSans;
+    background-color: #484d53;
+    width: 368px;
+    height: 306px;
+}
+
+#extractids-input:focus {
+    color: white;
+}
