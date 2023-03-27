@@ -137,8 +137,11 @@ a {
     background-color: #484d53;
     width: 368px;
     height: 306px;
+    border-left: 4px solid #959af4;
+
 }
 
 #extractids-input:focus {
     color: white;
+    outline: none;
 }

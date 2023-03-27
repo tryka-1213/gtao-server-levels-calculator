@@ -54,8 +54,10 @@
         document.getElementById("extractids-result").textContent = ""
         if (extracted.length > 0) {
             document.getElementById("extractids-input").value = `${extracted.join("\n")}`
+            document.getElementById("extractids-result").style.background = "#2f402d"
+            document.getElementById("extractids-result").textContent = `${extracted.length} ID${extracted.length > 1 ? "s" : ""}`
         } else {
-            document.getElementById("extractids-result").style.background = "#2d3740"
+            document.getElementById("extractids-result").style.background = "#402d2d"
             document.getElementById("extractids-result").textContent = "No IDs found"
         }
 
