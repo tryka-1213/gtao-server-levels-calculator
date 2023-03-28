@@ -91,7 +91,6 @@ function messageCountToXp(messages = 0, isPrestige = false) {
     return xp
 }
 
-new DiscordUser({xp: 1111, messages: 10000})
 
 
 
@@ -106,20 +105,18 @@ function extract(input, newMembersOnly) {
     let reg_hep = newMembersOnly ? /\((?<id>\d{16,20})\) joined  :new:/gmi : /\((?<id>\d{16,20})\) joined  /gmi
     let reg_zep = newMembersOnly ? /:new: <@!(?<id>\d{16,20})> /gmi : /<@!(?<id>\d{16,20})> /gmi
 
-    let matches_hep = input.matchAll(reg_hep)
-    let matches_zep = input.matchAll(reg_zep)
+    let regexes = [reg_hep, reg_zep]
 
     let ids = []
 
-    for (const match of matches_hep) {
-        console.log(match.groups.id)
-        ids.push(match.groups.id)
-    }
-
-    for (const match of matches_zep) {
-        console.log(match.groups.id)
-        ids.push(match.groups.id)
-    }
+    regexes.forEach(regex => {
+        let matches = input.matchAll(regex)
+        for (const match of matches) {
+            ids.push(match.groups.id)
+        }
+    })
 
     return ids
 }
+
+// extract("errrrrrrrrrgerg", true)

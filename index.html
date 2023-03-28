@@ -17,33 +17,18 @@
 <script src="index.js"></script>
 <script defer>
     window.onload = () => {
-        document.getElementById("xptolevel-input").addEventListener("keypress", (event) => {
-        if (event.key === "Enter") {
-            event.preventDefault()
-            document.getElementById("xptolevel-btn").click()
+        // Setup enter key event listener
+        let inputBoxes = document.querySelectorAll("[id$='input']")
+
+        for (const element of inputBoxes) {
+            let elementId = element.id.split("-")[0]
+            element.addEventListener("keypress", (event) => {
+                if ((event.key === "Enter") && (!event.shiftKey)) {
+                    event.preventDefault()
+                    document.getElementById(`${elementId}-btn`).click()
+                }
+            })
         }
-    })
-
-        document.getElementById("leveltoxp-input").addEventListener("keypress", (event) => {
-            if (event.key === "Enter") {
-                event.preventDefault()
-                document.getElementById("leveltoxp-btn").click()
-            }
-        })
-
-        document.getElementById("leveltomsg-input").addEventListener("keypress", (event) => {
-            if (event.key === "Enter") {
-                event.preventDefault()
-                document.getElementById("leveltomsg-btn").click()
-            }
-        })
-
-        document.getElementById("msgtolevel-input").addEventListener("keypress", (event) => {
-            if (event.key === "Enter") {
-                event.preventDefault()
-                document.getElementById("msgtolevel-btn").click()
-            }
-        })
     }
 
     function extractids() {
@@ -52,11 +37,15 @@
         let extracted = extract(input, newMembersOnly)
 
         document.getElementById("extractids-result").textContent = ""
+        
         if (extracted.length > 0) {
+            // display IDs
             document.getElementById("extractids-input").value = `${extracted.join("\n")}`
             document.getElementById("extractids-result").style.background = "#2f402d"
+            // display how many IDs were extracted
             document.getElementById("extractids-result").textContent = `${extracted.length} ID${extracted.length > 1 ? "s" : ""}`
         } else {
+            // nothing extracted
             document.getElementById("extractids-result").style.background = "#402d2d"
             document.getElementById("extractids-result").textContent = "No IDs found"
         }
