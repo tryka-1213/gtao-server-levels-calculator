@@ -9,7 +9,7 @@ function levelToXp(lvl) {
         let xpNeeded = (i)*120 + 240
         finalXpNeeded += xpNeeded
     }
-    return finalXpNeeded
+    return finalXpNeeded || 0
 }
 
 /**
@@ -29,7 +29,7 @@ function levelToMessageCount(lvl, isPrestige = false) {
     let xpPerMessage = 30 * (isPrestige ? prestigeMulti : 1)
     let messagesRequiredForLevel = Math.round(xp / xpPerMessage)
 
-    return messagesRequiredForLevel
+    return messagesRequiredForLevel || 0
 }
 
 /**
@@ -60,7 +60,7 @@ function xpToLevel(xp) {
     // add 1, since array is 0 based
     level += 1
 
-    return level
+    return level || 0
 }
 
 /**
@@ -77,7 +77,7 @@ function messageCountToLevel(messages = 0, isPrestige = false) {
     let xp = messages * (30 * (isPrestige ? prestigeMulti : 1))
     let level = xpToLevel(xp)
 
-    return level
+    return level || 0
 }
 
 /**
@@ -93,7 +93,7 @@ function messageCountToXp(messages = 0, isPrestige = false) {
     // convert messages to raw xp
     let xp = messages * (30 * (isPrestige ? prestigeMulti : 1))
     
-    return xp
+    return xp || 0
 }
 
 
@@ -122,5 +122,5 @@ function extract(input, newMembersOnly) {
         }
     })
 
-    return ids
+    return ids || []
 }
