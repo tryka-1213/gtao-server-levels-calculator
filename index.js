@@ -80,7 +80,12 @@ function messageCountToLevel(messages = 0, isPrestige = false) {
     return level
 }
 
-
+/**
+ * 
+ * @param {number} messages 
+ * @param {boolean} isPrestige 
+ * @returns number
+ */
 function messageCountToXp(messages = 0, isPrestige = false) {
     // multis
     let prestigeMulti = 1.2
@@ -100,6 +105,7 @@ function messageCountToXp(messages = 0, isPrestige = false) {
  * 
  * @param {string} input 
  * @param {boolean} newMembersOnly 
+ * @returns array[]
  */
 function extract(input, newMembersOnly) {
     let reg_hep = newMembersOnly ? /\((?<id>\d{16,20})\) joined  :new:/gmi : /\((?<id>\d{16,20})\) joined  /gmi
@@ -118,5 +124,3 @@ function extract(input, newMembersOnly) {
 
     return ids
 }
-
-// extract("errrrrrrrrrgerg", true)
