@@ -148,6 +148,9 @@ a {
 
 textarea {
     cursor: auto;
+    border: none;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 ::-webkit-scrollbar {
