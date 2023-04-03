@@ -32,6 +32,10 @@ input[type=number] {
     border-left: 4px solid #959af4;
 }
 
+input[type=text] {
+    border-left: 4px solid #959af4;
+}
+
 input {
     background-color: #484d53;
     border-top-right-radius: 5px;
