@@ -96,19 +96,38 @@
     }
 
     function logtojson() {
-        document.getElementById("logtojson-resultattachments").innerHTML = ""
-        document.getElementById("logtojson-result").innerText = ""
-        document.getElementById("logtojson-result").removeAttribute("href")
-        document.getElementById("logtojson-result").removeAttribute("download")
-        document.getElementById("logtojson-result").style = ""
-        document.getElementById("logtojson-resultraw").innerText = ""
-        document.getElementById("logtojson-attachment-title").hidden = true
+        const COLORS = {
+            "error": "#402d2d",
+            "success": "#2f402d"
+        }
 
-        let input = document.getElementById("logtojson-input").value
+        const MESSAGES = {
+            "no_input": "No log link found",
+            "invalid_input": "Invalid log link"
+        }
+
+        var input = document.getElementById("logtojson-input").value
+
+        var mainResultEl = document.getElementById("logtojson-result")
+        var rawResultEl = document.getElementById("logtojson-resultraw")
+        var attachmentResultEl = document.getElementById("logtojson-resultattachments")
+        var attachmentResultTitleEl = document.getElementById("logtojson-attachment-title")
+
+
+        mainResultEl.textContent = ""
+        mainResultEl.removeAttribute("href")
+        mainResultEl.style = ""
+        rawResultEl.innerText = ""
+        attachmentResultTitleEl.hidden = true
+        attachmentResultEl.innerHTML = ""
+        mainResultEl.style.color = "white"
+        rawResultEl.style.color = "white"
+
+
         
         if (!input) {
-            document.getElementById("logtojson-result").style.background = "#402d2d"
-            document.getElementById("logtojson-result").textContent = "No log link found"
+            mainResultEl.style.background = COLORS.error
+            mainResultEl.textContent = "No log link found"
             document.getElementById("logtojson-result").style.color = "white"
             return
         }
@@ -122,15 +141,12 @@
         )
         .then(resp => resp.json())
         .then(r => {
-            
-            document.getElementById("logtojson-result").style.color = "white"
-            document.getElementById("logtojson-resultraw").style.color = "white"
-
+            // error has occured
             if (r.error) {
-                if (document.getElementById("logtojson-result").textContent == "No log link found") return
-                document.getElementById("logtojson-result").textContent = "Invalid log link"
-                document.getElementById("logtojson-result").style.background = "#402d2d"
-                document.getElementById("logtojson-result").attributes.href = "#"
+                if (mainResultEl.textContent == MESSAGES.no_input) return
+                mainResultEl.textContent = MESSAGES.invalid_input
+                mainResultEl.style.background = COLORS.error
+            // no error
             } else {
                 console.log(r)
 
@@ -156,47 +172,47 @@
 
                 console.log(attachments)
 
-                // delete last
-
-
-                // Add attachments to list
-                document.getElementById("logtojson-attachment-title").hidden = false
-                document.getElementById("logtojson-attachment-title").textContent = "Attachments"
-
+                // Show attachments title
+                attachmentResultTitleEl.hidden = false, attachmentResultTitleEl.textContent = `Attachments (${attachments.length})`
+               
                 if (attachments.length == 0) {
                     document.getElementById("logtojson-attachment-title").innerHTML = "<i>There are no attachments in this thread</i>"
                 }
 
+                // Add attachments to list
                 attachments.forEach(attachment => {
                     let listEl = document.createElement("li")
+
                     let linkEl = document.createElement("a")
+
                     linkEl.style.color = "rgb(172, 172, 172)"
                     linkEl.textContent = attachment.split(/\//mgi).at(-1)
                     linkEl.setAttribute("href", attachment)
                     linkEl.target = "_blank"
+
                     listEl.style.listStyleType = "none"
                     listEl.appendChild(linkEl)
              
-                    document.getElementById("logtojson-resultattachments").appendChild(listEl)
+                    attachmentResultEl.appendChild(listEl)
                 })
 
                 // JSON -- only give message json
-                document.getElementById("logtojson-result").setAttribute("href", "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(r.messages.all)))
+                mainResultEl.setAttribute("href", "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(r.messages.all)))
 
-                document.getElementById("logtojson-result").setAttribute("download", `Log_#${r.thread.threadId}.json`)
-                document.getElementById("logtojson-result").style.background = "#2f402d"
+                mainResultEl.setAttribute("download", `Log_#${r.thread.threadId}.json`)
+                mainResultEl.style.background = "#2f402d"
 
                 // show file to download
-                document.getElementById("logtojson-result").textContent = `Download ${capitalizeFirstLetter(r.thread.type)} thread #${r.thread.threadId} (json)`
+                mainResultEl.textContent = `Download ${capitalizeFirstLetter(r.thread.type)} thread #${r.thread.threadId} (json)`
 
                 
                 // RAW
-                document.getElementById("logtojson-resultraw").setAttribute("href", input)
-                document.getElementById("logtojson-resultraw").setAttribute("target", "_blank")
-                document.getElementById("logtojson-resultraw").style.background = "#2f402d"
+                rawResultEl.setAttribute("href", input)
+                rawResultEl.setAttribute("target", "_blank")
+                rawResultEl.style.background = "#2f402d"
 
-                // show file to download
-                document.getElementById("logtojson-resultraw").textContent = `View raw`
+                // show raw link to log
+                rawResultEl.textContent = `View raw`
                 
             }
             return
@@ -204,11 +220,11 @@
     }
 
 
-    const toggleButton = (elId) => {
-        if (document.getElementById(elId).children[0].className.baseVal == "checkbox-off") {
-            document.getElementById(elId).innerHTML = `<svg class="checkbox-on" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#39a65a" class="bi bi-toggle-on" viewBox="0 0 16 16"><path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10H5zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/></svg>`
+    const toggleButton = (el) => {
+        if (el.children[0].className.baseVal == "checkbox-off") {
+            el.innerHTML = `<svg class="checkbox-on" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#39a65a" class="bi bi-toggle-on" viewBox="0 0 16 16"><path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10H5zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/></svg>`
         } else {
-            document.getElementById(elId).innerHTML = `<svg class="checkbox-off" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-toggle-off" viewBox="0 0 16 16"><path d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/></svg>`
+            el.innerHTML = `<svg class="checkbox-off" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-toggle-off" viewBox="0 0 16 16"><path d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/></svg>`
         }
 
     }
@@ -240,7 +256,7 @@
             </button>
             <br>  
             <span class="strong-font">Prestige?</span>
-            <button class="checkbox-btn" id="prestigecheck-leveltomsg" onclick="toggleButton('prestigecheck-leveltomsg')">
+            <button class="checkbox-btn" id="prestigecheck-leveltomsg" onclick="toggleButton(this)">
                 <svg class="checkbox-off" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-toggle-off" viewBox="0 0 16 16">
                     <path d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
                 </svg>
@@ -255,7 +271,7 @@
             </button>
             <br>  
             <span class="strong-font">Prestige?</span>
-            <button class="checkbox-btn" id="prestigecheck-msgtoxp" onclick="toggleButton('prestigecheck-msgtoxp')">
+            <button class="checkbox-btn" id="prestigecheck-msgtoxp" onclick="toggleButton(this)">
                 <svg class="checkbox-off" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-toggle-off" viewBox="0 0 16 16">
                     <path d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
                 </svg>
@@ -270,7 +286,7 @@
             </button>
             <br>  
             <span class="strong-font">Prestige?</span>
-            <button class="checkbox-btn" id="prestigecheck-msgtolevel" onclick="toggleButton('prestigecheck-msgtolevel')">
+            <button class="checkbox-btn" id="prestigecheck-msgtolevel" onclick="toggleButton(this)">
                 <svg class="checkbox-off" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-toggle-off" viewBox="0 0 16 16">
                     <path d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
                 </svg>
@@ -285,7 +301,7 @@
 
             <br>  
             <span class="strong-font">New accounts only?</span>
-            <button class="checkbox-btn" id="newmembersonly" onclick="toggleButton('newmembersonly')">
+            <button class="checkbox-btn" id="newmembersonly" onclick="toggleButton(this)">
                 
                 <svg class="checkbox-off" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-toggle-off" viewBox="0 0 16 16">
                     <path d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
