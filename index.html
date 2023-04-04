@@ -138,7 +138,7 @@
 
                 // get all attachment links inside thread  this needs refactored its a damn mess
                 var threadRaw = ""
-                    r.messages.all.map((val, i) => threadRaw += val.content)
+                    r.messages.all.map((val, i) => threadRaw += "\n" + val.content)
 
                 const ATTACHMENT_REGEX = {
                     "discord_logs_catbox": /(http(?:s)?:\/\/(?:www\.)?.*)\.(?:png|gif|mov|mp4|jpeg|jpg)/mgi,
