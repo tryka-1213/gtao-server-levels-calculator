@@ -161,6 +161,12 @@
 
                 // Add attachments to list
                 document.getElementById("logtojson-attachment-title").hidden = false
+                document.getElementById("logtojson-attachment-title").textContent = "Attachments"
+
+                if (attachments.length == 0) {
+                    document.getElementById("logtojson-attachment-title").innerHTML = "<i>There are no attachments in this thread</i>"
+                }
+
                 attachments.forEach(attachment => {
                     let listEl = document.createElement("li")
                     let linkEl = document.createElement("a")
