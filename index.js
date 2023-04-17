@@ -121,6 +121,6 @@ function extract(input, newMembersOnly) {
             ids.push(match.groups.id)
         }
     })
-
+    
     return ids || []
 }

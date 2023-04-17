@@ -112,6 +112,8 @@
         var rawResultEl = document.getElementById("logtojson-resultraw")
         var attachmentResultEl = document.getElementById("logtojson-resultattachments")
         var attachmentResultTitleEl = document.getElementById("logtojson-attachment-title")
+        var infoEl = document.getElementById("logtojson-resultinfo")
+        var infoTitleEl = document.getElementById("logtojson-info-title")
 
 
         mainResultEl.textContent = ""
@@ -120,6 +122,8 @@
         rawResultEl.innerText = ""
         attachmentResultTitleEl.hidden = true
         attachmentResultEl.innerHTML = ""
+        infoTitleEl.hidden = true
+        infoEl.innerHTML = ""
         mainResultEl.style.color = "white"
         rawResultEl.style.color = "white"
 
@@ -195,6 +199,14 @@
              
                     attachmentResultEl.appendChild(listEl)
                 })
+
+                // Show info
+                function makeWhite(string) {
+                    return `<span style="color: white;">${string}</span>`
+                }
+                infoTitleEl.hidden = false
+                infoEl.style.color = "rgb(180, 180, 180)"
+                infoEl.innerHTML = `Opened with ${makeWhite(r.user.username)}<br>@ ${makeWhite(r.thread.threadStartedAt)}<br><br>${makeWhite(r.messages.all.length)} total messages<br>${makeWhite(r.messages.chat.length)} internal<br>${makeWhite(r.messages.toUser.length)} to user<br>${makeWhite(r.messages.fromUser.length)} from user<br>..and ${makeWhite(r.messages.command.length)} commands ran`
 
                 // JSON -- only give message json
                 mainResultEl.setAttribute("href", "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(r.messages.all)))
@@ -314,7 +326,7 @@
             </button>
             <br><span id="extractids-result"></span>
         </div>
-        <!-- <div class="logtojson align-txt">
+        <div class="logtojson align-txt">
             <span class="strong-font">Modmail/Appeal Log parser</span><br>
             <input id="logtojson-input" class="logtojson-input" type="text">
             <button id="logtojson-btn" onclick="logtojson()">
@@ -326,7 +338,12 @@
             <div id="logtojson-resultattachments">
 
             </div>
-        </div> -->
+
+            <br><span hidden id="logtojson-info-title">Thread Info</span>
+            <div id="logtojson-resultinfo">
+
+            </div>
+        </div>
     </div>
     <a class="discord" href="https://discord.gg/gtao" target="_blank"></a>
 </body>
