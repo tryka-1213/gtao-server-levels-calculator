@@ -152,6 +152,10 @@
                 mainResultEl.style.background = COLORS.error
             // no error
             } else {
+
+                // get thread closer
+
+
                 console.log(r)
 
                 var attachments = []
@@ -206,16 +210,16 @@
                 }
                 infoTitleEl.hidden = false
                 infoEl.style.color = "rgb(180, 180, 180)"
-                infoEl.innerHTML = `Opened with ${makeWhite(r.user.username)}<br>@ ${makeWhite(r.thread.threadStartedAt)}<br><br>${makeWhite(r.messages.all.length)} total messages<br>${makeWhite(r.messages.chat.length)} internal<br>${makeWhite(r.messages.toUser.length)} to user<br>${makeWhite(r.messages.fromUser.length)} from user<br>..and ${makeWhite(r.messages.command.length)} commands ran`
+                infoEl.innerHTML = `Opened with ${makeWhite(r.user.username)}<br>(${makeWhite(r.user.userid)})<br>Closed by ${makeWhite(r.thread.closedBy)}<br><br>${makeWhite(r.messages.all.length)} total messages<br>${makeWhite(r.messages.chat.length)} internal<br>${makeWhite(r.messages.toUser.length)} to user<br>${makeWhite(r.messages.fromUser.length)} from user<br>${makeWhite(r.messages.bot.length + r.messages.repliesModified.length)} from bot<br>+ ${makeWhite(r.messages.command.length)} commands ran`
 
                 // JSON -- only give message json
                 mainResultEl.setAttribute("href", "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(r.messages.all)))
 
-                mainResultEl.setAttribute("download", `Log_#${r.thread.threadId}.json`)
+                mainResultEl.setAttribute("download", `Log_#${r.thread.id}.json`)
                 mainResultEl.style.background = "#2f402d"
 
                 // show file to download
-                mainResultEl.textContent = `Download ${capitalizeFirstLetter(r.thread.type)} thread #${r.thread.threadId} (json)`
+                mainResultEl.textContent = `Download ${capitalizeFirstLetter(r.thread.type)} thread #${r.thread.id} (JSON)`
 
                 
                 // RAW
@@ -334,15 +338,14 @@
             </button>
             <br><br><a id="logtojson-result"></a>
             <br><a id="logtojson-resultraw"></a>
+
+            <br><br><span hidden id="logtojson-info-title">Thread Info</span>
+            <div id="logtojson-resultinfo"></div>
+
             <br><br><span hidden id="logtojson-attachment-title">Attachments</span>
-            <div id="logtojson-resultattachments">
+            <div id="logtojson-resultattachments"></div>
 
-            </div>
 
-            <br><span hidden id="logtojson-info-title">Thread Info</span>
-            <div id="logtojson-resultinfo">
-
-            </div>
         </div>
     </div>
     <a class="discord" href="https://discord.gg/gtao" target="_blank"></a>
