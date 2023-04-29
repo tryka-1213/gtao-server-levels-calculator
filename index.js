@@ -6,7 +6,7 @@
 function levelToXp(lvl) {
     let finalXpNeeded = 0
     // limited to only showing xp up to rank 999, otherwise function will hang if input is too big
-    for (i = 1; i < parseInt(lvl) > 999 ? 999 : parseInt(lvl); i++) {
+    for (i = 1; i < (parseInt(lvl) > 999 ? 999 : parseInt(lvl)); i++) {
         let xpNeeded = (i)*120 + 240
         finalXpNeeded += xpNeeded
     }
