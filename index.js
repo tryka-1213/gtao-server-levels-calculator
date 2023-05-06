@@ -101,7 +101,7 @@ function messageCountToXp(messages = 0, isPrestige = false) {
 
 
 
-///////////// misc ////////////////
+// Non level related methods
 
 /**
  * 
