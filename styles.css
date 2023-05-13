@@ -145,7 +145,29 @@ a {
 
 }
 
+
+.lfgfilter-text {
+  position: relative;
+  bottom: 2px;
+}
+
+
+#lfgfilter-input {
+  color: rgb(168, 168, 168);
+  font-family: GGSans;
+  background-color: #484d53;
+  width: 300px;
+  height: 206px;
+  border-left: 4px solid #959af4;
+
+}
+
 #extractids-input:focus {
+  color: white;
+  outline: none;
+}
+
+#lfgfilter-input:focus {
   color: white;
   outline: none;
 }
@@ -179,6 +201,28 @@ textarea {
 
 /* Handle on hover */
 #extractids-input::-webkit-scrollbar-thumb:hover {
+  background: #111414; 
+}
+
+/**/
+#lfgfilter-input::-webkit-scrollbar {
+  width: 9px;
+}
+
+/* Track */
+#lfgfilter-input::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 0px gray; 
+  border-radius: 3px;
+}
+
+/* Handle */
+#lfgfilter-input::-webkit-scrollbar-thumb {
+  background: #161a19; 
+  border-radius: 8px;
+}
+
+/* Handle on hover */
+#lfgfilter-input::-webkit-scrollbar-thumb:hover {
   background: #111414; 
 }
 
