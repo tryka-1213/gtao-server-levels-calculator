@@ -136,7 +136,7 @@ function extract(input, newMembersOnly) {
  */
 function willLfgFilter(string) {
     // 3+ new lines
-    let reg_lines = /([^]+\n){3,}/gmi 
+    let reg_lines = /([^]+\n){2,}/gmi 
     // 3+ emojis
     let reg_emojis = /(\p{RI}\p{RI}|\p{Emoji}(\p{EMod}+|\u{FE0F}\u{20E3}?|[\u{E0020}-\u{E007E}]+\u{E007F})?(\u{200D}\p{Emoji}(\p{EMod}+|\u{FE0F}\u{20E3}?|[\u{E0020}-\u{E007E}]+\u{E007F})?)+|\p{EPres}(\p{EMod}+|\u{FE0F}\u{20E3}?|[\u{E0020}-\u{E007E}]+\u{E007F})?|\p{Emoji}(\p{EMod}+|\u{FE0F}\u{20E3}?|[\u{E0020}-\u{E007E}]+\u{E007F})|(<\s*?:[a-zA-Z0-9_\.\-#$]+:[0-9]{16,}>\s*?)|:[a-zA-Z0-9_\.\-#$]+:)/ugmi
     // n word
